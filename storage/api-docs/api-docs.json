@@ -1,0 +1,713 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Weather API",
+        "description": "Swagger to use Weather API",
+        "contact": {
+            "email": ""
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000/api",
+            "description": "Develop API Server"
+        }
+    ],
+    "paths": {
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Realizando login do usuário",
+                "description": "Retorna o token do usuário",
+                "operationId": "8cb7742ae98d0990acb2907c4e00bf24",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sucesso login, retorna token",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LoginResource"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Email ou senha não enviados"
+                    },
+                    "401": {
+                        "description": "E-mail ou senha errados"
+                    }
+                }
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Criação do usuário",
+                "description": "Retorna dados do usuário",
+                "operationId": "ed42f392010c301892e640067141676e",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RegisterRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Sucesso na criação",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LoginResource"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Nome, e-mail ou senha não enviados"
+                    },
+                    "403": {
+                        "description": "E-mail não informado"
+                    }
+                }
+            }
+        },
+        "/auth/verify-token": {
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Lista informações do usuário ativo",
+                "description": "Retorna informações do usuário ativo",
+                "operationId": "d270642b32cbbebe842d92da7dec8cc7",
+                "responses": {
+                    "200": {
+                        "description": "Sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UserResource"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Não autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/locations/geocode": {
+            "post": {
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Criação do local",
+                "description": "Retorna dados do local",
+                "operationId": "c673806c0c6c9e6aef8b8c883a2a4a6b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LocationSaveRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Sucesso na criação",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LocationResource"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Informações incompletas"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        },
+        "/locations/alert": {
+            "post": {
+                "tags": [
+                    "Locations"
+                ],
+                "summary": "Criação do local",
+                "description": "Retorna dados do local",
+                "operationId": "bf893a303b0b96df745b30c2460bb247",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LocationSaveRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Sucesso na criação",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/LocationResource"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Informações incompletas"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer_token": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "CustomerTag": {
+                "title": "CustomerTag",
+                "description": "CustomerTag model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "customer_id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "tag_id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "CustomerTag"
+                }
+            },
+            "Location": {
+                "title": "Location",
+                "description": "Location model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "latitude": {
+                        "title": "Latitude",
+                        "description": "Latitude do local",
+                        "type": "string",
+                        "example": "-222"
+                    },
+                    "longitude": {
+                        "title": "Longitude",
+                        "description": "Longitude do local",
+                        "type": "string",
+                        "example": "-44"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Location"
+                }
+            },
+            "PaginateLocation": {
+                "title": "PaginateLocation",
+                "description": "PaginateLocation model",
+                "type": "object",
+                "xml": {
+                    "name": "PaginateLocation"
+                },
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/PaginateResponse"
+                    },
+                    {
+                        "properties": {
+                            "data": {
+                                "title": "Itens listados",
+                                "description": "Itens listados",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Location"
+                                }
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "PaginateResponse": {
+                "title": "PaginateResponse",
+                "description": "PaginateResponse model",
+                "properties": {
+                    "current_page": {
+                        "title": "Página atual",
+                        "description": "Página atual",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "total": {
+                        "title": "Total de itens",
+                        "description": "Total de itens",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "per_page": {
+                        "title": "Itens por página",
+                        "description": "Itens por página",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "first_page_url": {
+                        "title": "Primeira página URL",
+                        "type": "string",
+                        "example": "http://127.0.0.1:8000/api/customers?page=1"
+                    },
+                    "last_page_url": {
+                        "title": "Última página URL",
+                        "type": "string",
+                        "example": "http://127.0.0.1:8000/api/customers?page=1"
+                    },
+                    "next_page_url": {
+                        "title": "Próxima página URL",
+                        "type": "string",
+                        "example": "http://127.0.0.1:8000/api/customers?page=2"
+                    },
+                    "prev_page_url": {
+                        "title": "Página anterior URL",
+                        "type": "string",
+                        "example": "http://127.0.0.1:8000/api/customers?page=1"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "PaginateResponse"
+                }
+            },
+            "PaginateTag": {
+                "title": "PaginateTag",
+                "description": "PaginateTag model",
+                "type": "object",
+                "xml": {
+                    "name": "PaginateTag"
+                },
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/PaginateResponse"
+                    },
+                    {
+                        "properties": {
+                            "data": {
+                                "title": "Itens listados",
+                                "description": "Itens listados",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Tag"
+                                }
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "Tag": {
+                "title": "Tag",
+                "description": "Tag model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Nome da tag",
+                        "type": "string",
+                        "example": "Suporte"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Tag"
+                }
+            },
+            "User": {
+                "title": "User",
+                "description": "User model",
+                "properties": {
+                    "id": {
+                        "title": "ID",
+                        "description": "ID",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "name": {
+                        "title": "Name",
+                        "description": "Nome do usuário",
+                        "type": "string",
+                        "example": "Matheus Melo"
+                    },
+                    "email": {
+                        "title": "Email",
+                        "description": "Email do usuário",
+                        "type": "string",
+                        "example": "matheusmelo@gmail.com"
+                    },
+                    "created_at": {
+                        "title": "Created at",
+                        "description": "Created at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    },
+                    "updated_at": {
+                        "title": "Updated at",
+                        "description": "Updated at",
+                        "type": "string",
+                        "format": "datetime",
+                        "example": "2020-01-27 17:50:45"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "User"
+                }
+            },
+            "LoginRequest": {
+                "title": "LoginRequest",
+                "description": "LoginRequest",
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "email": {
+                        "title": "email",
+                        "description": "E-mail do usuário",
+                        "type": "string",
+                        "example": "matheusmelo@gmail.com"
+                    },
+                    "password": {
+                        "title": "password",
+                        "description": "Senha do usuário",
+                        "type": "string",
+                        "example": "123456"
+                    }
+                },
+                "type": "object"
+            },
+            "RegisterRequest": {
+                "title": "RegisterRequest",
+                "description": "RegisterRequest",
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Nome do usuário",
+                        "type": "string",
+                        "example": "Matheus Melo"
+                    },
+                    "email": {
+                        "title": "email",
+                        "description": "E-mail do usuário",
+                        "type": "string",
+                        "example": "matheusmelo@gmail.com"
+                    },
+                    "password": {
+                        "title": "password",
+                        "description": "Senha do usuário",
+                        "type": "string",
+                        "example": "123456"
+                    }
+                },
+                "type": "object"
+            },
+            "CustomerTagRequest": {
+                "title": "CustomerTagRequest",
+                "description": "CustomerTagRequest",
+                "required": [
+                    "customer_id",
+                    "tags"
+                ],
+                "properties": {
+                    "customer_id": {
+                        "title": "ID do cliente",
+                        "description": "ID do cliente",
+                        "type": "integer",
+                        "format": "int64",
+                        "example": 1
+                    },
+                    "tags": {
+                        "title": "Tags (IDS)",
+                        "description": "Array com os IDs das tags",
+                        "type": "array",
+                        "items": {
+                            "type": "integer",
+                            "format": "id"
+                        },
+                        "example": [
+                            1
+                        ]
+                    }
+                },
+                "type": "object"
+            },
+            "LocationSaveRequest": {
+                "title": "LocationSaveRequest",
+                "description": "LocationSaveRequest",
+                "required": [
+                    "latitude",
+                    "longitude"
+                ],
+                "properties": {
+                    "latitude": {
+                        "title": "Latitude",
+                        "description": "Latitude do local",
+                        "type": "string",
+                        "example": "-222"
+                    },
+                    "longitude": {
+                        "title": "Longitude",
+                        "description": "Longitude do local",
+                        "type": "string",
+                        "example": "-44"
+                    }
+                },
+                "type": "object"
+            },
+            "TagSaveRequest": {
+                "title": "TagSaveRequest",
+                "description": "TagSaveRequest",
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "name": {
+                        "title": "name",
+                        "description": "Nome da tag",
+                        "type": "string",
+                        "example": "Suporte"
+                    }
+                },
+                "type": "object"
+            },
+            "LoginResource": {
+                "title": "LoginResource",
+                "description": "Base resource",
+                "type": "object",
+                "xml": {
+                    "name": "LoginResource"
+                },
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/BaseResource"
+                    },
+                    {
+                        "properties": {
+                            "result": {
+                                "title": "Result",
+                                "description": "resultado",
+                                "type": "string",
+                                "example": "1|XOIW3wzwgQz0EWlKy90NKrR2MVWWZfQH1lV8gIpS82b177e7"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "BaseResource": {
+                "title": "BaseResource",
+                "description": "Base resource",
+                "properties": {
+                    "result": {
+                        "title": "Result",
+                        "description": "resultado",
+                        "type": "string"
+                    },
+                    "ok": {
+                        "title": "Status da requisição",
+                        "description": "Se requisição foi um sucesso ou não",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "description": {
+                        "title": "Descrição da resposta",
+                        "description": "Detalhes da resposta",
+                        "type": "string",
+                        "example": "sucesso"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "BaseResource"
+                }
+            },
+            "CustomerTagResource": {
+                "title": "CustomerTagResource",
+                "description": "CustomerTag resource",
+                "type": "object",
+                "xml": {
+                    "name": "CustomerTagResource"
+                },
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/BaseResource"
+                    },
+                    {
+                        "properties": {
+                            "result": {
+                                "title": "Result",
+                                "description": "Data wrapper",
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/Tag"
+                                }
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "LocationResource": {
+                "title": "LocationResource",
+                "description": "Location resource",
+                "type": "object",
+                "xml": {
+                    "name": "LocationResource"
+                },
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/BaseResource"
+                    },
+                    {
+                        "properties": {
+                            "result": {
+                                "$ref": "#/components/schemas/Location"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "TagResource": {
+                "title": "TagResource",
+                "description": "Tag resource",
+                "type": "object",
+                "xml": {
+                    "name": "TagResource"
+                },
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/BaseResource"
+                    },
+                    {
+                        "properties": {
+                            "result": {
+                                "$ref": "#/components/schemas/Tag"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            },
+            "UserResource": {
+                "title": "UserResource",
+                "description": "User resource",
+                "type": "object",
+                "xml": {
+                    "name": "UserResource"
+                },
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/BaseResource"
+                    },
+                    {
+                        "properties": {
+                            "result": {
+                                "$ref": "#/components/schemas/User"
+                            }
+                        },
+                        "type": "object"
+                    }
+                ]
+            }
+        },
+        "securitySchemes": {
+            "bearer_token": {
+                "type": "http",
+                "description": "Enter token in format (Bearer <token>)",
+                "scheme": "bearer",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    }
+}
