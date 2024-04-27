@@ -5,6 +5,9 @@ Laravel (Framework)
 PHP (Linguagem)
 MySQL (Database)
 
+## Firebase configuracao
+Coloque a pasta storage recebida no local da atual, ou crie a pasta `storage\app\firebase\` e coloque o arquivo .json recebido o `fcm.json`
+
 ## Docker
 Configure as variaveis do projeto em `.env`, copie do `env.example` caso não exista <br>
 Configurações do banco e WEATHER API e Firebase<br>
